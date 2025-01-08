@@ -24,11 +24,6 @@ module.exports = {
         } = config ?? {};
 
         console.warn("Note: the Clarity.initialize() function has to be called once in your startup page.");
-        if (device.platform !== "Android") {
-            console.warn("Clarity supports Android only for now.");
-            error("Clarity supports Android only for now.");
-            return;
-        }
 
         cordova.exec(
             success,
@@ -43,12 +38,6 @@ module.exports = {
      * Pauses the Clarity capturing processes until the next resume() is called.
      */
     pause: function (success, error) {
-        if (device.platform !== "Android") {
-            console.warn("Clarity supports Android only for now.");
-            error("Clarity supports Android only for now.");
-            return;
-        }
-
         cordova.exec(
             function (message) { success(message) },
             function (message) { error(message) },
@@ -63,12 +52,6 @@ module.exports = {
      * Note: Clarity starts capturing data right on initialization.
      */
     resume: function (success, error) {
-        if (device.platform !== "Android") {
-            console.warn("Clarity supports Android only for now.");
-            error("Clarity supports Android only for now.");
-            return;
-        }
-
         cordova.exec(
             function (message) { success(message) },
             function (message) { error(message) },
@@ -82,12 +65,6 @@ module.exports = {
      * Returns true if Clarity has been paused by the user.
      */
     isPaused: function (success, error) {
-        if (device.platform !== "Android") {
-            console.warn("Clarity supports Android only for now.");
-            error("Clarity supports Android only for now.");
-            return;
-        }
-
         cordova.exec(
             function (paused) { success(paused) },
             function (message) { error(message) },
@@ -109,12 +86,6 @@ module.exports = {
      * @param error   A callback to invoke when the process fails.
      */
     setCustomUserId: function (customUserId, success, error) {
-        if (device.platform !== "Android") {
-            console.warn("Clarity supports Android only for now.");
-            error("Clarity supports Android only for now.");
-            return;
-        }
-
         cordova.exec(
             function (message) { success(message) },
             function (message) { error(message) },
@@ -135,12 +106,6 @@ module.exports = {
      * @param error   A callback to invoke when the process fails.
      */
     setCurrentScreenName: function (currentScreenName, success, error) {
-        if (device.platform !== "Android") {
-            console.warn("Clarity supports Android only for now.");
-            error("Clarity supports Android only for now.");
-            return;
-        }
-
         cordova.exec(
             function (message) { success(message) },
             function (message) { error(message) },
@@ -160,12 +125,6 @@ module.exports = {
      * @param error   A callback to invoke when the process fails.
      */
     setCustomSessionId: function (customSessionId, success, error) {
-        if (device.platform !== "Android") {
-            console.warn("Clarity supports Android only for now.");
-            error("Clarity supports Android only for now.");
-            return;
-        }
-
         cordova.exec(
             function (message) { success(message) },
             function (message) { error(message) },
@@ -184,12 +143,6 @@ module.exports = {
      * @param error   A callback to invoke when the process fails.
      */
     setCustomTag: function (key, value, success, error) {
-        if (device.platform !== "Android") {
-            console.warn("Clarity supports Android only for now.");
-            error("Clarity supports Android only for now.");
-            return;
-        }
-
         cordova.exec(
             function (message) { success(message) },
             function (message) { error(message) },
@@ -206,12 +159,6 @@ module.exports = {
      * @param error   A callback to invoke when the process fails.
      */
     getCurrentSessionId: function (success, error) {
-        if (device.platform !== "Android") {
-            console.warn("Clarity supports Android only for now.");
-            error("Clarity supports Android only for now.");
-            return;
-        }
-
         cordova.exec(
             function (id) { success(id) },
             function (message) { error(message) },
@@ -228,12 +175,6 @@ module.exports = {
      * @param error   A callback to invoke when the process fails.
      */
     getCurrentSessionUrl: function (success, error) {
-        if (device.platform !== "Android") {
-            console.warn("Clarity supports Android only for now.");
-            error("Clarity supports Android only for now.");
-            return;
-        }
-
         cordova.exec(
             function (url) { success(url) },
             function (message) { error(message) },

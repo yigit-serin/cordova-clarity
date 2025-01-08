@@ -31,6 +31,24 @@
 
     </platform>
 
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="ClarityPlugin">
+                <param name="ios-package" value="ClarityPlugin" />
+            </feature>
+        </config-file>
+
+        <source-file src="src/ios/ClarityPlugin.swift" />
+        <podspec>
+            <config>
+                <source url="https://cdn.cocoapods.org/"/>
+            </config>
+            <pods use-frameworks="true">
+                <pod name="Clarity" />
+            </pods>
+        </podspec>
+    </platform>
+
     <dependency id="cordova-plugin-device" version="^2.1.0" />
 
 </plugin>

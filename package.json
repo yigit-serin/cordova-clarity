@@ -5,7 +5,8 @@
   "cordova": {
     "id": "cordova-clarity",
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ]
   },
   "keywords": [
