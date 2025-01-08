@@ -108,31 +108,17 @@ public class ClarityPlugin extends CordovaPlugin {
         Activity activity = this.cordova.getActivity();
 
         String projectId = data.getString(0);
-        String userId = data.get(1).equals(null) ? null : data.getString(1);
         LogLevel logLevel = LogLevel.valueOf(data.getString(2));
-        Boolean allowMeteredNetworkUsage = data.getBoolean(3);
-        ArrayList allowedDomains = jsonArrayToList(data.getJSONArray(4));
-        ArrayList allowedActivities = new ArrayList<String>(); //not supported
-        ArrayList disallowedActivities = new ArrayList<String>(); //not supported
-        Boolean disableOnLowEndDevices = data.getBoolean(5);
-        Long maximumDailyNetworkUsageInMB = data.get(6).equals(null) ? null : data.getLong(6);
         Boolean isIonic = data.getBoolean(7);
         Boolean enableWebViewCapture = true; // If false, nothing is going to be captured.
         ApplicationFramework applicationFramework = !isIonic ? ApplicationFramework.Cordova : ApplicationFramework.Ionic;
 
+
         ClarityConfig config = new ClarityConfig(
-            projectId,
-            userId,
-            logLevel,
-            allowMeteredNetworkUsage,
-            enableWebViewCapture,
-            allowedDomains,
-            applicationFramework,
-            allowedActivities,
-            disallowedActivities,
-            disableOnLowEndDevices,
-            maximumDailyNetworkUsageInMB
+            projectId
         );
+        config.setLogLevel(logLevel);
+        config.setApplicationFramework(applicationFramework);
 
         Callable<Boolean> callable = () -> {
             return Clarity.initialize(activity, config);
