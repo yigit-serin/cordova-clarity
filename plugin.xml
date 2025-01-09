@@ -41,9 +41,6 @@
         <header-file src="src/ios/ClarityPlugin.h" />
         <source-file src="src/ios/ClarityPlugin.swift" />
         
-        <!-- Swift Support -->
-        <preference name="UseSwiftLanguageVersion" value="5" />
-        
         <podspec>
             <config>
                 <source url="https://cdn.cocoapods.org/"/>
