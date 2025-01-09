@@ -242,6 +242,29 @@ module.exports = {
             []
         );
     },
+
+    /**
+     * Sends a custom event to Clarity for tracking specific user actions.
+     * 
+     * @param eventName    The name of the custom event to send.
+     * @param success      A callback to invoke when the process succeeds.
+     * @param error        A callback to invoke when the process fails.
+     */
+    sendCustomEvent: function (eventName, success, error) {
+        if (device.platform !== "Android") {
+            console.warn("Clarity supports Android only for now.");
+            error("Clarity supports Android only for now.");
+            return;
+        }
+
+        cordova.exec(
+            function (message) { success(message) },
+            function (message) { error(message) },
+            "ClarityPlugin",
+            "sendCustomEvent",
+            [eventName]
+        );
+    },
     
     /**
      * The level of logging to show in the device logcat stream.

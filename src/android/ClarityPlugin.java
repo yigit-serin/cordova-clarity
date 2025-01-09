@@ -18,7 +18,10 @@ import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-
+/**
+ * This class is the main entry point for the Clarity plugin.
+ * It handles all the plugin's functionality.
+ */
 @RequiresApi(api = Build.VERSION_CODES.Q)
 public class ClarityPlugin extends CordovaPlugin {
     @Override
@@ -87,6 +90,15 @@ public class ClarityPlugin extends CordovaPlugin {
                         callbackContext.success("Setting custom tag succeeded.");
                     } else {
                         callbackContext.error("Setting custom tag failed, please check logs for more details!");
+                    }
+                    return true;
+                case "sendCustomEvent":
+                    String eventName = data.get(0).equals(null) ? null : data.getString(0);
+
+                    if (Clarity.sendCustomEvent(eventName)) {
+                        callbackContext.success("Sending custom event succeeded.");
+                    } else {
+                        callbackContext.error("Sending custom event failed, please check logs for more details!");
                     }
                     return true;
                 case "getCurrentSessionId":
