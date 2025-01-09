@@ -6,17 +6,18 @@ class ClarityPlugin: CDVPlugin {
     
     @objc(initialize:)
     func initialize(command: CDVInvokedUrlCommand) {
-        let projectId = command.arguments[0] as? String ?? ""
-        let userId = command.arguments[1] as? String
-        let logLevel = command.arguments[2] as? Int ?? 0
-        let isIonic = command.arguments[7] as? Bool ?? false
+        guard let projectId = command.arguments[0] as? String,
+              let logLevel = command.arguments[2] as? Int else {
+            let pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Invalid parameters")
+            self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
+            return
+        }
         
         let clarityLogLevel: LogLevel = LogLevel(rawValue: logLevel) ?? .none
-        let framework: ApplicationFramework = isIonic ? .ionic : .cordova
+        let framework: ApplicationFramework = .cordova
         
         let clarityConfig = ClarityConfig(
             projectId: projectId,
-            userId: userId,
             logLevel: clarityLogLevel,
             applicationFramework: framework
         )
@@ -33,7 +34,7 @@ class ClarityPlugin: CDVPlugin {
     @objc(pause:)
     func pause(command: CDVInvokedUrlCommand) {
         ClaritySDK.pause()
-        if ClaritySDK.isPaused {
+        if ClaritySDK.isPaused() {
             let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Clarity paused.")
             self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
         } else {
@@ -45,7 +46,7 @@ class ClarityPlugin: CDVPlugin {
     @objc(resume:)
     func resume(command: CDVInvokedUrlCommand) {
         ClaritySDK.resume()
-        if !ClaritySDK.isPaused {
+        if !ClaritySDK.isPaused() {
             let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Resume succeeded.")
             self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
         } else {
@@ -56,13 +57,17 @@ class ClarityPlugin: CDVPlugin {
     
     @objc(isPaused:)
     func isPaused(command: CDVInvokedUrlCommand) {
-        let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: ClaritySDK.isPaused ? 1 : 0)
+        let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: ClaritySDK.isPaused() ? 1 : 0)
         self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
     }
     
     @objc(setCustomUserId:)
     func setCustomUserId(command: CDVInvokedUrlCommand) {
-        let customUserId = command.arguments[0] as? String
+        guard let customUserId = command.arguments[0] as? String else {
+            let pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Invalid custom user id")
+            self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
+            return
+        }
         
         if ClaritySDK.setCustomUserId(customUserId) {
             let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Setting custom user id succeeded.")
@@ -75,7 +80,11 @@ class ClarityPlugin: CDVPlugin {
     
     @objc(setCustomSessionId:)
     func setCustomSessionId(command: CDVInvokedUrlCommand) {
-        let customSessionId = command.arguments[0] as? String
+        guard let customSessionId = command.arguments[0] as? String else {
+            let pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Invalid custom session id")
+            self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
+            return
+        }
         
         if ClaritySDK.setCustomSessionId(customSessionId) {
             let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Setting custom session id succeeded.")
@@ -88,7 +97,11 @@ class ClarityPlugin: CDVPlugin {
     
     @objc(setCurrentScreenName:)
     func setCurrentScreenName(command: CDVInvokedUrlCommand) {
-        let currentScreenName = command.arguments[0] as? String
+        guard let currentScreenName = command.arguments[0] as? String else {
+            let pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Invalid screen name")
+            self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
+            return
+        }
         
         if ClaritySDK.setCurrentScreenName(currentScreenName) {
             let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Setting custom screen name succeeded.")
@@ -101,8 +114,12 @@ class ClarityPlugin: CDVPlugin {
     
     @objc(setCustomTag:)
     func setCustomTag(command: CDVInvokedUrlCommand) {
-        let key = command.arguments[0] as? String
-        let value = command.arguments[1] as? String
+        guard let key = command.arguments[0] as? String,
+              let value = command.arguments[1] as? String else {
+            let pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Invalid key or value")
+            self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
+            return
+        }
         
         if ClaritySDK.setCustomTag(key: key, value: value) {
             let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Setting custom tag succeeded.")
