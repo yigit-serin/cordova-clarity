@@ -30,6 +30,6 @@
     }
   ],
   "dependencies": {
-    "cordova-plugin-device": "^2.1.0"
+    "cordova-plugin-device": "^3.0.0"
   }
 }
