@@ -31,6 +31,6 @@
 
     </platform>
 
-    <dependency id="cordova-plugin-device" version="^2.1.0" />
+    <dependency id="cordova-plugin-device" version="^3.0.0" />
 
 </plugin>
